@@ -18,8 +18,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-    private Animation appearingAnim;
-    private Animation disappearingAnim;
     private Animation shakingAnim;
     private ArrayList<ImageView> ivList;
     private ArrayList<AnimationDrawable> drawablesList;
@@ -49,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
             drawablesList.add((AnimationDrawable) iv.getBackground());
         }
 
-        appearingAnim = AnimationUtils.loadAnimation(this, R.anim.appearing);
-        disappearingAnim = AnimationUtils.loadAnimation(this, R.anim.disappearing);
         shakingAnim = AnimationUtils.loadAnimation(this, R.anim.shaking);
         bindShuffleAnim();
 
@@ -66,8 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 for(ImageView iv : ivList){
                     iv.setVisibility(View.INVISIBLE);
                 }
-                for(int i = 0; i < ivCnt; i++){
-                    ivList.get(i).setVisibility(View.VISIBLE);
+                for(ImageView iv : ivList.subList(0, ivCnt)){
+                    iv.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -76,8 +72,8 @@ public class MainActivity extends AppCompatActivity {
         touchArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for(int i = 0; i < ivCnt; i++){
-                    ivList.get(i).startAnimation(shakingAnim);
+                for(ImageView iv : ivList.subList(0, ivCnt)){
+                    iv.startAnimation(shakingAnim);
                 }
             }
         });
